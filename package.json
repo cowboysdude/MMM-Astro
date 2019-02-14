@@ -1,0 +1,26 @@
+{
+  "name": "mmm-astro",
+  "version": "1.1.1",
+  "main": "MMM-Astro.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cowboysdude",
+  "license": "MIT",
+  "dependencies": {
+    "aztro-js": "^0.1.5",
+    "fs": "0.0.1-security",
+    "nostra": "0.0.7",
+    "powerball-picker": "^1.0.4"
+  },
+  "devDependencies": {},
+  "description": "Astrology Module for MagicMirror2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cowboysdude/MMM-Astro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cowboysdude/MMM-Astro/issues"
+  },
+  "homepage": "https://github.com/cowboysdude/MMM-Astro#readme"
+}
