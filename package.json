@@ -9,7 +9,7 @@
   "license": "MIT",
   "dependencies": {
     "aztro-js": "^0.1.5",
-    "fs": "0.0.1-security",
+    "fs": "0.0.2",
     "nostra": "0.0.7",
     "powerball-picker": "^1.0.4"
   },
