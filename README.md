@@ -25,7 +25,7 @@ The following properties can be configured:
 | Option | Description
 | --- | ---
 | `sign` | The star sign to display. Must be lower case. <br><br> **Example values:** `leo`, `aries`, `pisces`<br>**Default value:** none
-| `iconSet` | The type of horoscope icon to display. <br><br> **Possible values:** `1`, `2`, `3`, `4`<br>**Default value: 1** none<br>CAUTION:  Yearly horoscopes are VERY large in most cases will take up entire screen! 
+| `iconSet` | The type of horoscope icon to display. <br><br> **Possible values:** `1`, `2`, `3`, `4`<br>**Default value: 1**  <br> 
 |`extend`| to show the extended forecast  <br><br> **Possible values:** `true`, `false` <br>**Default value: true** 
  
  
