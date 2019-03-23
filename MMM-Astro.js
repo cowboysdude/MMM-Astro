@@ -2,7 +2,7 @@
  * Module: MMM-Astro
  *
  * By cowboysdude
- * 
+ *
  */
 Module.register('MMM-Astro', {
 
@@ -42,14 +42,14 @@ Module.register('MMM-Astro', {
     },
 
     getStyles: function() {
-        return ['https://www.w3schools.com/w3css/4/w3.css','MMM-Astro.css'];
+        return ['MMM-Astro.css'];
     },
 
     // Define start sequence.
     start: function() {
         Log.info('Starting module: ' + this.name);
         this.sendSocketNotification('CONFIG', this.config);
-        // Set locale. 
+        // Set locale.
         this.today = '';
         this.scheduleUpdate();
     },
@@ -60,60 +60,71 @@ Module.register('MMM-Astro', {
         {
 	     console.log('From Main.js ~~ Sign: '+this.config.sign+'  Icon set: '+this.config.iconset+' Show Extended: '+this.config.extend);
 		 console.log('All Data: Horo: '+this.horo+' <br>Extended: '+this.fortune+' <br>Numbers: '+this.lottery.numbers);
-    	} 
-	
-        var today = this.astro; 
-        var lucky = this.lottery;
+    	}
+
+        var today = this.astro;
+
+
+        var lottery = this.lottery;
+
+
+  console.log(lottery);
+
+        console.log(lottery);
         var starSign = this.config.starsign[this.config.sign];
 
-       
-        
+
+
         var wrapper = document.createElement('div');
 
         if (!this.loaded) {
             wrapper.innerHTML = '<img src=modules/MMM-Astro/icons/loader.gif>';
             return wrapper;
         }
-       
+
 
         var ssign = document.createElement('div');
-        ssign.classList.add('top');
-        ssign.innerHTML = '<img class=main src = modules/MMM-Astro/icons/' + this.config.iconset + '/' + starSign + '.svg> ' + starSign;
+        ssign.classList.add('tops');
+        ssign.innerHTML = '<img class=mains src = modules/MMM-Astro/icons/' + this.config.iconset + '/' + starSign + '.svg> ' + starSign;
         wrapper.appendChild(ssign);
 
-        var title = document.createElement('div');
-        title.classList.add('xsmall', 'bright');
-        title.style.float = 'left';
-        title.innerHTML = '<br>Horoscope for ' + today.current_date+'<br>';
-        wrapper.appendChild(title);
+        var titless = document.createElement('div');
+        titless.classList.add('xsmall', 'bright');
+        titless.style.float = 'left';
+        titless.innerHTML = '<br>Horoscope for ' + today.current_date+'<br>';
+        wrapper.appendChild(titless);
+
+
+        var afterWithout = this.horo.substr(0, this.horo.lastIndexOf(","));
 
         var scope = document.createElement('div');
-        scope.classList.add('xsmall', 'bright', 'desc');
-        scope.innerHTML = '<br><br>' + this.horo;
-        wrapper.appendChild(scope); 
-		
-        if (this.config.extend != false){ 
+        scope.classList.add('xsmall', 'bright', 'descs');
+        scope.innerHTML = '<br><br>' + afterWithout+".";
+        wrapper.appendChild(scope);
+
+        if (this.config.extend != false){
             var tom = document.createElement('div');
-            tom.classList.add('desc');
+            tom.classList.add('descs');
             tom.innerHTML = 'Extended :<br>' + this.fortune;
             wrapper.appendChild(tom);
 	    }
-		
-        var des = document.createElement('div');
-        des.classList.add('desc');
-        des.innerHTML = '<br>Your Mood today is: ' + today.mood + '<br> Your Color today is: ' + today.color + '<br>Today you are compatable with: ' + today.compatibility + '<br>Your Lucky time is: ' + today.lucky_time + '<br>Your lucky numbers are: <br>' + lucky.numbers + ' and ' + lucky.powerball;
-        wrapper.appendChild(des);
-		
-        return wrapper;
-    }, 
 
-    processAstro: function(data) { 
+        var des = document.createElement('div');
+        des.classList.add('descs');
+        des.innerHTML = 'Your Mood today is: ' + today.mood + '<br> Your Color today is: ' + today.color + '<br>Today you are compatable with: ' + today.compatibility  + '<br><br>Your lucky numbers are: <br>' + lottery;
+        wrapper.appendChild(des);
+
+        return wrapper;
+    },
+
+    processAstro: function(data) {
         this.loaded = true;
         this.today = data.Today;
-        this.astro = data.today; 
+        this.astro = data.today;
         this.lottery = data.lottery;
         this.horo = data.dscope.horoscope;
         this.fortune = data.fortune;
+        console.log(this.lottery);
     },
 
     scheduleUpdate: function() {
