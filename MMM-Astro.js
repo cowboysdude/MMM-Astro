@@ -73,44 +73,41 @@ Module.register('MMM-Astro', {
         console.log(lottery);
         var starSign = this.config.starsign[this.config.sign];
 
-
-
         var wrapper = document.createElement('div');
-
+        wrapper.classList.add('wrap');
         if (!this.loaded) {
             wrapper.innerHTML = '<img src=modules/MMM-Astro/icons/loader.gif>';
             return wrapper;
         }
 
-
         var ssign = document.createElement('div');
-        ssign.classList.add('tops');
+        ssign.classList.add('tops','small','bright');
         ssign.innerHTML = '<img class=mains src = modules/MMM-Astro/icons/' + this.config.iconset + '/' + starSign + '.svg> ' + starSign;
         wrapper.appendChild(ssign);
 
         var titless = document.createElement('div');
-        titless.classList.add('xsmall', 'bright');
+        titless.classList.add('xsmall', 'bright','wrapdiv');
         titless.style.float = 'left';
-        titless.innerHTML = '<br>Horoscope for ' + today.current_date+'<br>';
+        titless.innerHTML = 'Horoscope for ' + today.current_date;
         wrapper.appendChild(titless);
 
 
         var afterWithout = this.horo.substr(0, this.horo.lastIndexOf(","));
 
         var scope = document.createElement('div');
-        scope.classList.add('xsmall', 'bright', 'descs');
+        scope.classList.add('xsmall', 'bright','wrapdiv');
         scope.innerHTML = '<br><br>' + afterWithout+".";
         wrapper.appendChild(scope);
 
         if (this.config.extend != false){
             var tom = document.createElement('div');
-            tom.classList.add('descs');
+            tom.classList.add('xsmall','bright','wrapdiv');
             tom.innerHTML = 'Extended :<br>' + this.fortune;
             wrapper.appendChild(tom);
 	    }
 
         var des = document.createElement('div');
-        des.classList.add('descs');
+        des.classList.add('xsmall','bright','wrapdiv');
         des.innerHTML = 'Your Mood today is: ' + today.mood + '<br> Your Color today is: ' + today.color + '<br>Today you are compatable with: ' + today.compatibility  + '<br><br>Your lucky numbers are: <br>' + lottery;
         wrapper.appendChild(des);
 

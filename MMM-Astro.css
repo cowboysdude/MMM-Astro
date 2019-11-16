@@ -3,15 +3,19 @@
 .MMM-Astro {
 	width: 300px;
 }
- 
+.wrap {text-align: center; margin: 10px 10px 0 10px;}
+.wrapdiv {display: inline-block}
+.MMM-Astro .tops {
+	width: 20%;
+	height: 20%;
+}
 .MMM-Astro .main {
 	width: 20%;
 	height: 20%;
 } 
 .MMM-Astro .content { 
-  background-position: 11px 0;
-  background-repeat: no-repeat;
-  color: #fe0127;
+  text-align: justify;
+  text-align-last: left;
 }
 .MMM-Astro .title {
 	font-family: 'Titillium Web', sans-serif;
