@@ -23,7 +23,7 @@
     "aztro-js": "^0.1.5",
     "fs": "0.0.1-security",
     "nostra": "0.0.7",
-    "random-org": "^1.1.0",
+    "random-org": "^2.0.0",
     "request": "^2.88.0"
   },
   "devDependencies": {}
