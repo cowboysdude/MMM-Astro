@@ -1,54 +1,57 @@
-@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+/* MMM-Astro */
+.MMM-Astro .astro {
+	text-align: left;
+	line-height: 1.35;
+}
 
-.MMM-Astro {
-	width: 300px;
+.MMM-Astro .astro-head {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 8px;
 }
-.wrap {text-align: center; margin: 10px 10px 0 10px;}
-.wrapdiv {display: inline-block}
-.MMM-Astro .tops {
-	width: 20%;
-	height: 20%;
+
+.MMM-Astro .astro-icon {
+	width: 52px;
+	height: 52px;
+	flex: none;
 }
-.MMM-Astro .main {
-	width: 20%;
-	height: 20%;
-} 
-.MMM-Astro .content { 
-  text-align: justify;
-  text-align-last: left;
+
+.MMM-Astro .astro-sign {
+	line-height: 1.1;
 }
-.MMM-Astro .title {
-	font-family: 'Titillium Web', sans-serif;
-	color: #d8d86d;
-	margin-left: auto;
-    margin-right: auto;
-	line-height: 80%;
+
+.MMM-Astro .astro-text {
+	color: #ccc;
+	white-space: normal;
 }
-.MMM-Astro .mood {
-	width: 8%;
-	height: 8%;
+
+.MMM-Astro .astro-label {
+	margin-top: 10px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #999;
+	border-bottom: 1px solid #444;
+	padding-bottom: 2px;
+	margin-bottom: 4px;
 }
-.MMM-Astro .top {
-	font-family: 'Titillium Web', sans-serif; 
-	font-size: 24px;
-    line-height: 90%;
-	text-align: left;
-	padding-top: 23px;
-  padding-bottom: 5px;
+
+.MMM-Astro .astro-week {
+	color: #aaa;
 }
-.MMM-Astro .desc {
-	font-family: 'Titillium Web', sans-serif; 
-	font-size: 14px;
-    line-height: 90%;
-	text-align: left;
-	padding-top: 23px;
-  padding-bottom: 5px;
+
+.MMM-Astro .astro-lucky {
+	margin-top: 10px;
+	border-collapse: collapse;
+	width: 100%;
 }
-h3:first-letter {
-    text-transform:capitalize;
+
+.MMM-Astro .astro-lucky td {
+	padding: 1px 0;
 }
-.img {
-	
-	width: 3%;
-	height: 3%;
+
+.MMM-Astro .astro-lucky td:first-child {
+	padding-right: 12px;
+	white-space: nowrap;
+	width: 1%;
 }

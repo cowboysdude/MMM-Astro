@@ -1,114 +1,59 @@
-/* Magic Mirror
- * Module: MMM-Astro
+/* MagicMirror² Module: MMM-Astro
+ * By cowboysdude
  *
- * By Cowboysdude
- *
+ * Gets the daily (and weekly) horoscope from freehoroscopeapi.com.
+ * No API key and no npm install needed (uses the fetch built into Node 18+).
  */
-const NodeHelper = require('node_helper');
-const request = require('request');
-const aztroJs = require("aztro-js");
-var RandomOrg = require('random-org');
-const fs = require('fs');
-const nostra = require('nostra');
-var lottery;
+const NodeHelper = require("node_helper");
+const Log = require("logger");
 
+const API = "https://freehoroscopeapi.com/api/v1/get-horoscope";
 
 module.exports = NodeHelper.create({
+	start () {
+		Log.log(`Starting node helper for: ${this.name}`);
+		this.cache = {}; // "pisces|daily" -> { day, data }
+	},
 
-    start: function() {
-        console.log("Starting module: " + this.name);
-        this.scope = {
-            timestamp: null,
-            data: null
-        };
-        this.path = "modules/MMM-Astro/scope.json";
+	today () {
+		const d = new Date();
+		return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+	},
 
-        if (fs.existsSync(this.path)) {
-            var temp = JSON.parse(fs.readFileSync(this.path, 'utf8'));
-      //console.log("Step 1 temp data: "+temp);
-            if (temp.timestamp === this.getDate()) {
-                this.scope = temp;
-            }
-        }
-    },
+	async get (sign, period) {
+		const key = `${sign}|${period}`;
+		const hit = this.cache[key];
+		if (hit && hit.day === this.today()) return hit.data;
 
-    getAstro: function(url) {
-	     var self = this;
-       let sign = this.config.sign;
-//console.log("Step 2 sign: "+sign);
-	     request({
-            url: "http://horoscope-api.herokuapp.com/horoscope/today/"+ this.config.sign,
-            method: 'GET'
-        }, (error, response, body) => {
-		if (!error && response.statusCode == 200) {
-                var dscope = JSON.parse(body);
+		const res = await fetch(`${API}/${period}?sign=${encodeURIComponent(sign)}`, {
+			headers: { "User-Agent": "MagicMirror MMM-Astro" },
+			signal: AbortSignal.timeout(15000)
+		});
+		if (!res.ok) throw new Error(`HTTP ${res.status}`);
+		const json = await res.json();
+		const data = json && json.data;
+		if (!data || !data.horoscope) throw new Error("No horoscope in the answer");
+		this.cache[key] = { day: this.today(), data };
+		return data;
+	},
 
+	async socketNotificationReceived (notification, payload) {
+		if (notification !== "ASTRO_GET") return;
+		const { id, sign, weekly } = payload;
+		try {
+			const daily = await this.get(sign, "daily");
+			let week = null;
+			if (weekly) {
+				try {
+					week = await this.get(sign, "weekly");
+				} catch (e) {
+					Log.warn(`[MMM-Astro] Weekly horoscope not available: ${e.message}`);
+				}
 			}
-      //console.log("Step 3 dscope: "+dscope);
-
-  var random = new RandomOrg({ apiKey: '3a5f48b7-ff7a-44f2-9697-476beb8fed1e' });
-random.generateIntegers({ min: 1, max: 99, n: 6 })
-  .then(function(result) {
-    //console.log(result.random.data); // [55, 3]
-    lottery = result.random.data.sort(function(a, b){return a-b});
-//console.log("Step 6 Lottery: "+ lottery);
-});
-       	var fortune = nostra.generate();
-//console.log("Step 4 fortune: "+fortune);
-            aztroJs.getAllHoroscope(sign, function(res) {
-//console.log("Step 5 astroJS: "+res);
-            var today = res.today;
-            var tomorrow = res.tomorrow;
-
-				var timeStamp = self.getDate();
-                var result = {
-					          fortune,
-				            dscope,
-                    lottery,
-                    today,
-                    tomorrow,
-                };
-        //console.log("Step 7 result"+result);
-                self.sendSocketNotification('ASTRO_RESULTS', result);
-                self.scope.timestamp = self.getDate();
-          //console.log("Step 8 time stamp: "+self.scope.timestamp+" DATA"+self.scope.data)
-                self.scope.data = result;
-                self.fileWrite();
-
-});
-
-		 });
-    },
-
-    fileWrite: function() {
-        fs.writeFile(this.path, JSON.stringify(this.scope), function(err) {
-            if (err) {
-                return console.log(err);
-            }
-            console.log("The Horoscope file was written!");
-        });
-    },
-
-    getDate: function() {
-        return (new Date()).toLocaleDateString();
-    },
-
-    //Subclass socketNotificationReceived received.
-    socketNotificationReceived: function(notification, payload) {
-        if (notification === 'GET_ASTRO') {
-            if (this.scope.timestamp === this.getDate() && this.scope.data !== null && this.config.sign === this.scope.data.dscope.sunsign) {
-                this.sendSocketNotification('ASTRO_RESULTS', this.scope.data);
-            } else {
-                this.getAstro(payload);
-            }
-        }
-        if (notification === 'CONFIG') {
-            this.config = payload;
-        }
-		let debug = this.config.debug;
-		if (debug !== false)
-		{
-	     console.log("From Node_Helper ~~ Sign: "+this.config.sign+"  Icon set: "+this.config.iconset+" Show Tomorrow: "+this.config.extend);
-    	}
-    }
+			this.sendSocketNotification("ASTRO_DATA", { id, daily, weekly: week });
+		} catch (e) {
+			Log.error(`[MMM-Astro] Could not get the horoscope for ${sign}: ${e.message}`);
+			this.sendSocketNotification("ASTRO_ERROR", { id, message: e.message });
+		}
+	}
 });

@@ -1,30 +1,13 @@
 {
   "name": "mmm-astro",
-  "version": "1.2.1",
-  "description": "Astrology module for MagicMirror2",
+  "version": "2.0.0",
+  "description": "MagicMirror² module that shows today's and this week's horoscope for your star sign, plus a lucky mood, color, match and numbers.",
   "main": "MMM-Astro.js",
-  "directories": {
-    "example": "examples"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cowboysdude/MMM-Astro.git"
   },
-  "author": "Cowboysdude",
+  "author": "cowboysdude",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/cowboysdude/MMM-Astro/issues"
-  },
-  "homepage": "https://github.com/cowboysdude/MMM-Astro#readme",
-  "dependencies": {
-    "aztro-js": "^0.1.5",
-    "fs": "0.0.1-security",
-    "nostra": "0.0.7",
-    "random-org": "^2.0.0",
-    "request": "^2.88.0"
-  },
-  "devDependencies": {}
+  "keywords": ["MagicMirror", "horoscope", "astrology", "zodiac"]
 }
