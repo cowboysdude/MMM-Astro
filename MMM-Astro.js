@@ -10,7 +10,7 @@ Module.register("MMM-Astro", {
 		iconset: "1",           // 1, 2, 3 or 4
 		extend: true,           // also show this week's horoscope
 		showLucky: true,        // lucky color, mood, match and numbers
-		maxWidth: "350px",
+		maxWidth: "300px",
 		updateInterval: 60 * 60 * 1000, // check once an hour (the reading changes once a day)
 		retryDelay: 5 * 60 * 1000,      // try again after 5 minutes if it fails
 		animationSpeed: 1000
@@ -152,7 +152,7 @@ Module.register("MMM-Astro", {
 			return wrap;
 		}
 
-		wrap.appendChild(this.el("div", "astro-text small", this.daily.horoscope));
+		wrap.appendChild(this.el("div", "astro-text xsmall", this.daily.horoscope));
 
 		if (this.weekly && this.weekly.horoscope) {
 			wrap.appendChild(this.el("div", "astro-label xsmall", "This week"));

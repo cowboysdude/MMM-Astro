@@ -59,7 +59,7 @@ Restart MagicMirror to see it.
 | `iconset` | `"1"` | Which icon set to use: `"1"`, `"2"`, `"3"` or `"4"` (see the screenshots). |
 | `extend` | `true` | Also show this week's horoscope. Set to `false` for today only. |
 | `showLucky` | `true` | Show the lucky mood, color, best match and numbers. Set to `false` to hide them. |
-| `maxWidth` | `"350px"` | How wide the module can get. |
+| `maxWidth` | `"300px"` | How wide the module can get. |
 | `updateInterval` | `3600000` (1 hour) | How often to check for a new day's horoscope, in milliseconds. |
 
 Want horoscopes for two people? Add the module twice, each with its own `sign`.
